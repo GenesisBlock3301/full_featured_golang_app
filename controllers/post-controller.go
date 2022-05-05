@@ -24,9 +24,13 @@ func AllPosts(ctx *gin.Context) {
 
 // Looking for post by ID
 func FindByPostId(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Get find by ID work",
-	})
+	id := ctx.Param("postId")
+	post ,err := services.PostFindById(id)
+	if err != nil{
+		ctx.JSON(http.StatusBadRequest,gin.H{"error":"post not found."})
+	}
+	serializer := serializers.PostSerializer{Post: post}
+	ctx.JSON(http.StatusOK,serializer.Response())
 }
 
 // Insert post
@@ -36,7 +40,7 @@ func InsertPost(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	
+
 	if err := helper.UploadPostImage(ctx, &form); err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
@@ -92,7 +96,7 @@ func UploadPostImage(ctx *gin.Context) {
 func DeleteByPostId(ctx *gin.Context) {
 	postId := ctx.Param("postId")
 	err := services.PostDeletedByIdService(postId)
-	if err != nil{
+	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})

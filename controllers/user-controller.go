@@ -5,7 +5,6 @@ import (
 	"bookshop/services"
 	"bookshop/validinput"
 	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -49,25 +48,23 @@ func Login(ctx *gin.Context) {
 }
 
 // Get Current User
-func CurrentUser(ctx *gin.Context)(){
+func CurrentUser(ctx *gin.Context) {
 	user_id, err := services.ExtractTokenID(ctx)
-
-	if err != nil{
-		ctx.JSON(http.StatusBadRequest,gin.H{
-			"error":err.Error(),
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
 		})
 		return
 	}
 
-	user,err := services.GetUserById(user_id)
-	if err != nil{
-		ctx.JSON(http.StatusBadRequest,gin.H{
-			"error":err.Error(),
+	user, err := services.GetUserById(user_id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
 		})
 		return
 	}
 	serializer := serializers.UserSerializer{User: user}
-	ctx.JSON(http.StatusOK,gin.H{"message":"success","data":serializer.Response()})
-	
+	ctx.JSON(http.StatusOK, gin.H{"message": "success", "data": serializer.Response()})
 
 }

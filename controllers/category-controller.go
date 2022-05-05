@@ -47,35 +47,35 @@ func CategoryById(ctx *gin.Context) {
 func CategoryUpdate(ctx *gin.Context) {
 	updateInput := validinput.Category{}
 	id := ctx.Param("categoryId")
-	if err := ctx.ShouldBindJSON(&updateInput);err !=nil{
+	if err := ctx.ShouldBindJSON(&updateInput); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"error":err.Error(),
+			"error": err.Error(),
 		})
 	}
 	categoryModel := model.Category{
 		Name: updateInput.Name}
-	category,err := services.CategoryUpdateService(id,categoryModel)
+	category, err := services.CategoryUpdateService(id, categoryModel)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 	}
-	
+
 	serializer := serializers.CategorySerializer{Category: category}
-	ctx.JSON(http.StatusOK,serializer.Response())
+	ctx.JSON(http.StatusOK, serializer.Response())
 
 }
 
-func CategoryDeleteById(ctx *gin.Context){
+func CategoryDeleteById(ctx *gin.Context) {
 	id := ctx.Param("categoryId")
 	err := services.CategoryDeleteByIdService(id)
-	if err != nil{
+	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
-	ctx.JSON(http.StatusOK,gin.H{
-		"message":"successfully deleted",
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "successfully deleted",
 	})
 }
