@@ -27,7 +27,7 @@ func FindByPostId(ctx *gin.Context) {
 	id := ctx.Param("postId")
 	post ,err := services.PostFindById(id)
 	if err != nil{
-		ctx.JSON(http.StatusBadRequest,gin.H{"error":"post not found."})
+		ctx.JSON(http.StatusBadRequest,gin.H{"error":"Id not found."})
 	}
 	serializer := serializers.PostSerializer{Post: post}
 	ctx.JSON(http.StatusOK,serializer.Response())
