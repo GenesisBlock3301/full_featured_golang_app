@@ -72,7 +72,7 @@ func PostDeletedByIdService(postId string) (error){
 // Find post according to id
 func PostFindById(id string) (model.Post, error) {
 	var post model.Post
-	if err := config.DB.First(&post, id).Error; err != nil {
+	if err := config.DB.Preload("Category").First(&post, id).Error; err != nil {
 		return post, err
 	}
 	return post, nil
