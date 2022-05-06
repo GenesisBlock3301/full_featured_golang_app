@@ -7,10 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
-func AuthRoute(authRouter *gin.RouterGroup){
-	authRouter.POST("/register",controller.Register)
-	authRouter.POST("/login",controller.Login)
-	authRouter.GET("/user",middlewares.JWTAuthMiddleware(),controller.CurrentUser)
+func AuthRoute(authRouter *gin.RouterGroup) {
+	authRouter.POST("/register", controller.Register)
+	authRouter.POST("/login", controller.Login)
+	authRouter.GET("/user", middlewares.JWTAuthMiddleware(), controller.CurrentUser)
 }

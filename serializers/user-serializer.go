@@ -14,8 +14,8 @@ type UserSerializer struct {
 
 func (serializer *UserSerializer) Response() UserResponse {
 	return UserResponse{
-		ID: uint(serializer.User.ID),
-		Name: serializer.User.Name,
+		ID:    uint(serializer.User.ID),
+		Name:  serializer.User.Name,
 		Email: serializer.User.Email,
 	}
 }

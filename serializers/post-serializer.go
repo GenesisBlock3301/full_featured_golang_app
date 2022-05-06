@@ -35,16 +35,15 @@ func (serializer *PostSerializer) Response() PostResponse {
 }
 
 // List of posts response
-type PostsSerializer struct{
+type PostsSerializer struct {
 	Posts []model.Post
 }
 
-
-func (serializer *PostsSerializer) Response() []PostResponse{
+func (serializer *PostsSerializer) Response() []PostResponse {
 	response := []PostResponse{}
-	for _,post := range serializer.Posts{
-		postSerializer := PostSerializer{Post:post}
-		response = append(response,postSerializer.Response())
+	for _, post := range serializer.Posts {
+		postSerializer := PostSerializer{Post: post}
+		response = append(response, postSerializer.Response())
 	}
 	return response
 }

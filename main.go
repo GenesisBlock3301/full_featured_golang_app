@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
 func main() {
 	// defer config.CloseDbConnection()
 	config.ConnectWithDB()
