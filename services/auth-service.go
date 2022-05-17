@@ -14,7 +14,7 @@ func RegisterService(userInput validinput.User) (model.User, error) {
 		Email:    userInput.Email,
 		Password: userInput.Password,
 	}
-	if err := config.DB.Where("name = ?", userInput.Name).First(&user).Error; err == nil {
+	if err := config.DB.Where("email = ?", userInput.Email).First(&user).Error; err == nil {
 		return user, errors.New("User already exits")
 	}
 	user.Password = hashAndSalt([]byte(user.Password))

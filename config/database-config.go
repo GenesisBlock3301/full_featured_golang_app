@@ -17,13 +17,3 @@ func ConnectWithDB(){
 	database.AutoMigrate(&model.User{},&model.Category{},&model.Post{})
 	DB = database
 }
-
-
-// // Close connection
-// func CloseDbConnection(db *gorm.DB){
-// 	database,err := db.DB()
-// 	if err != nil{
-// 		panic("Failed to close connection")
-// 	}
-// 	database.Close()
-// }

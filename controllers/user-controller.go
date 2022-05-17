@@ -4,7 +4,9 @@ import (
 	"bookshop/serializers"
 	"bookshop/services"
 	"bookshop/validinput"
+	"fmt"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +20,8 @@ func Register(ctx *gin.Context) {
 	}
 	user, err := services.RegisterService(userInput)
 	if err != nil {
-		ctx.JSON(http.StatusOK, gin.H{
+		fmt.Println("This is working",err)
+		ctx.JSON(http.StatusConflict, gin.H{
 			"error": err.Error(),
 		})
 	}
